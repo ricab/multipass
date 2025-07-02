@@ -221,7 +221,7 @@ jobs:
     - name: Configure
       run: >
         ${{ env.ARCH_WRAPPER }}
-        cmake
+        cmake --debug-output --trace-expand
         -B${{ env.BUILD_DIR }}
         -DCMAKE_BUILD_TYPE=RelWithDebInfo
         -GNinja

@@ -58,9 +58,9 @@ if(NOT DEFINED VCPKG_BUILD_DEFAULT)
   set(VCPKG_HOST_TRIPLET "${VCPKG_HOST_ARCH}-${VCPKG_HOST_OS}-release")
   set(VCPKG_TARGET_TRIPLET "${VCPKG_HOST_ARCH}-${VCPKG_HOST_OS}-release")
 endif()
-
-set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/3rd-party/vcpkg/scripts/buildsystems/vcpkg.cmake"
-  CACHE STRING "Vcpkg toolchain file")
+#
+#set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/3rd-party/vcpkg/scripts/buildsystems/vcpkg.cmake"
+#  CACHE STRING "Vcpkg toolchain file")
 
 project(Multipass)
 
@@ -145,25 +145,25 @@ if(UNIX)
 
   list(APPEND MULTIPASS_BACKENDS qemu)
 endif()
-
-# OpenSSL config
-find_package(OpenSSL REQUIRED)
-
-# gRPC config
-find_package(gRPC CONFIG REQUIRED)
-
-# fmt config
-find_package(fmt CONFIG REQUIRED)
-# targets: fmt::fmt, fmt::fmt-header-only
-
-# Needs to be here before we set further compilation options
-add_subdirectory(3rd-party)
-
-# Qt config
-find_package(Qt6 COMPONENTS Core Concurrent Network REQUIRED)
-
-# POCO config
-find_package(Poco REQUIRED COMPONENTS Foundation Zip)
+#
+## OpenSSL config
+#find_package(OpenSSL REQUIRED)
+#
+## gRPC config
+#find_package(gRPC CONFIG REQUIRED)
+#
+## fmt config
+#find_package(fmt CONFIG REQUIRED)
+## targets: fmt::fmt, fmt::fmt-header-only
+#
+## Needs to be here before we set further compilation options
+#add_subdirectory(3rd-party)
+#
+## Qt config
+#find_package(Qt6 COMPONENTS Core Concurrent Network REQUIRED)
+#
+## POCO config
+#find_package(Poco REQUIRED COMPONENTS Foundation Zip)
 
 function(determine_version OUTPUT_VARIABLE)
   # use upstream repo as the authoritative reference when checking for release status
@@ -221,6 +221,7 @@ function(determine_version OUTPUT_VARIABLE)
   endif()
 
   if(APPLE OR MSVC)
+    message("DEBUG: detected Apple or MSVC")
     string(REGEX MATCH "\\+full$" FULL_SUFFIX_MATCH ${NEW_VERSION})
     if(NOT FULL_SUFFIX_MATCH)
       set(NEW_VERSION ${NEW_VERSION}.full)
